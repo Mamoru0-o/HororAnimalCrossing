@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class CameraFollowTarget : MonoBehaviour
 {
+    [SerializeField] GameObject BoxLook;
+    float speedlook = 2.0f;
+
     public Transform target;
     Vector3 targetPos;
     public Vector3 offsetPos;
@@ -24,7 +28,22 @@ public class CameraFollowTarget : MonoBehaviour
     void MoveWithTarget()
     {
         targetPos = target.transform.position + offsetPos;
-        //transform.position = Vector3.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime* smooth);
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smooth);
     }
+
+    public void EventLook()
+    {
+        transform.position += (BoxLook.transform.position - transform.position).normalized * speedlook * Time.deltaTime;
+        
+    }
+
+    public void EventLookDown()
+    {
+        transform.position -= (BoxLook.transform.position - transform.position).normalized * speedlook * Time.deltaTime;
+        if ((BoxLook.transform.position - transform.position).sqrMagnitude < 0.01f)
+        {
+            transform.position = Vector3.zero;
+        };
+    }
+
 }

@@ -5,9 +5,15 @@ using UnityEngine;
 public class TakeItem : MonoBehaviour
 {
     [SerializeField] GameObject pressKey;
+    [SerializeField] GameObject Item;
     [SerializeField] GameObject player;
+    public GameObject theDest;
+    public bool pickup;
+    private float speed = 3.0f;
 
     private bool isTrigger = false;
+    private bool isTriggerGo = false;
+
 
     private void Start()
     {
@@ -29,8 +35,15 @@ public class TakeItem : MonoBehaviour
     {
         if (isTrigger && Input.GetKeyUp(KeyCode.E))
         {
-            
+            isTriggerGo = true;
+            Destroy(pressKey);
         }
+        if (isTriggerGo)
+        {
+            Item.transform.position += (theDest.transform.position - transform.position).normalized * speed * Time.deltaTime;
+            if ((theDest.transform.position - transform.position).sqrMagnitude < 0.01f) Destroy(gameObject);
+        }
+        
     }
 }
 
