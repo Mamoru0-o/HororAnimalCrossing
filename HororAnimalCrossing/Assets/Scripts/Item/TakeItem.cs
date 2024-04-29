@@ -40,8 +40,12 @@ public class TakeItem : MonoBehaviour
         }
         if (isTriggerGo)
         {
-            Item.transform.position += (theDest.transform.position - transform.position).normalized * speed * Time.deltaTime;
+
             if ((theDest.transform.position - transform.position).sqrMagnitude < 0.01f) Destroy(gameObject);
+            Item.GetComponent<Rigidbody>().useGravity = false;
+            Item.GetComponent<CapsuleCollider>().isTrigger = true;
+            Item.transform.position += (theDest.transform.position - transform.position).normalized * speed * Time.deltaTime;
+            
         }
         
     }

@@ -58,11 +58,11 @@ public class PlayerController : MonoBehaviour
             }
             var rot = Quaternion.LookRotation(relative, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation,rot,speedTurn*Time.deltaTime);
-            GetComponent<PlayerAnimationCon>().Run(speed,true); // включаем анимации 
+            //GetComponent<PlayerAnimationCon>().Run(speed,true); // включаем анимации 
         }
         else
         {
-            GetComponent<PlayerAnimationCon>().Run(speed, false);
+           // GetComponent<PlayerAnimationCon>().Run(speed, false);
         }
     }
 }
